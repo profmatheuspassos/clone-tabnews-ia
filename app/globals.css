@@ -1,0 +1,314 @@
+:root {
+  --red: #c8102e;
+  --red-dark: #7a0c1c;
+  --red-deep: #4f0812;
+  --skin: #ffcf3f;
+  --skin-shade: #e3b02a;
+  --hair: #8a3b1f;
+  --glow: #ff2d55;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 20% 75%, rgba(200, 16, 46, 0.28), transparent 55%),
+    linear-gradient(#0b0616, #1a0b2e 60%, #2a0f3a);
+}
+
+.stage {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 6vw 14vh;
+}
+
+/* chão */
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14vh;
+  background: linear-gradient(#3a1a4f, #1c0b2b);
+  border-top: 4px solid #5a2a78;
+}
+
+/* ---------- heroína ---------- */
+.hero-side {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: clamp(150px, 27vw, 290px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.hint {
+  margin: 0 0 0.6rem;
+  text-align: center;
+  font-size: clamp(0.95rem, 2.2vw, 1.4rem);
+  line-height: 1.25;
+  text-shadow: 0 0 8px var(--glow), 0 0 20px var(--glow);
+  animation: bob 1.1s ease-in-out infinite;
+  transition: opacity 0.4s;
+}
+
+.hint span {
+  display: block;
+  font-size: 1.3em;
+}
+
+.hint.hidden {
+  opacity: 0;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.hero {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transform-origin: 50% 100%;
+  transition: filter 0.2s;
+}
+
+.hero:hover {
+  filter: drop-shadow(0 0 14px rgba(255, 45, 85, 0.7));
+}
+
+.hero:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 6px;
+  border-radius: 12px;
+}
+
+.hero svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.hero.cast {
+  animation: cast 0.3s ease-out;
+}
+
+@keyframes cast {
+  30% {
+    transform: rotate(-4deg) scale(1.04);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+}
+
+.hand-glow {
+  transform-origin: 204px 89px;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.35);
+    opacity: 0.7;
+  }
+}
+
+/* ---------- muralha ---------- */
+.wall {
+  position: relative;
+  z-index: 1;
+  width: clamp(130px, 32vw, 320px);
+  transition: opacity 0.8s;
+}
+
+.wall.shake {
+  animation: shake 0.35s;
+}
+
+@keyframes shake {
+  20% {
+    transform: translateX(8px);
+  }
+  40% {
+    transform: translateX(-6px);
+  }
+  60% {
+    transform: translateX(4px);
+  }
+  80% {
+    transform: translateX(-2px);
+  }
+}
+
+.row {
+  display: flex;
+  height: clamp(24px, 6.2vh, 46px);
+}
+
+.brick {
+  flex: 2;
+  margin: 1px;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.28),
+    inset 3px 0 0 rgba(255, 255, 255, 0.08);
+}
+
+.brick.half {
+  flex: 1;
+}
+
+/* ---------- poder ---------- */
+.orb {
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, #fff 0 18%, #ff8fa6 35%, var(--glow) 60%, transparent 72%);
+  box-shadow:
+    0 0 18px 6px var(--glow),
+    0 0 50px 16px rgba(200, 16, 46, 0.6);
+}
+
+.flash {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(circle at 80% 60%, rgba(255, 45, 85, 0.55), transparent 60%);
+  opacity: 0;
+}
+
+/* ---------- final ---------- */
+.finale {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 6vw;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s 0.5s, visibility 0s 0.5s;
+}
+
+.neon {
+  margin: 0;
+  font-weight: 400;
+  color: #fff;
+  text-wrap: balance;
+  animation: flicker 3.5s infinite;
+}
+
+.neon.big {
+  font-size: clamp(2.2rem, 8vw, 6rem);
+  text-shadow:
+    0 0 6px #fff,
+    0 0 14px var(--glow),
+    0 0 30px var(--glow),
+    0 0 60px var(--glow),
+    0 0 100px #ff006a;
+}
+
+.neon.small {
+  font-size: clamp(1.4rem, 4.5vw, 3.2rem);
+  animation-delay: 0.4s;
+  text-shadow:
+    0 0 6px #fff,
+    0 0 14px #2de2ff,
+    0 0 30px #2de2ff,
+    0 0 60px #00a2ff;
+}
+
+@keyframes flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.55;
+  }
+}
+
+.again {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.4rem;
+  font: inherit;
+  font-size: 1rem;
+  color: #fff;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.again:hover {
+  border-color: #fff;
+  box-shadow: 0 0 14px var(--glow);
+}
+
+.done .hero-side,
+.done .wall {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.done .hero-side {
+  transform: scale(0.8);
+}
+
+.done .finale {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hint,
+  .hand-glow,
+  .neon,
+  .hero.cast,
+  .wall.shake {
+    animation: none;
+  }
+}
